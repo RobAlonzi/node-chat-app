@@ -20,10 +20,17 @@ gulp.task("dev", gulp.series(
 						gulp.parallel(
 							devServerWatch, 
 							devServerReload)));
-
+//dev:client gets built through dev:server
 gulp.task("prod:server", gulp.series("clean:server", prodServerBuild));
 gulp.task("prod:client", gulp.series("clean:client", prodClientBuild));
 gulp.task("prod", gulp.series("clean", gulp.parallel(prodServerBuild, prodClientBuild)));
+
+
+gulp.task('test', () =>
+	gulp.src('src/**/*.test.js')
+		.pipe($.mocha())
+);
+
 
 // ---------------------------
 // Private Client Tasks

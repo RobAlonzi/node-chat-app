@@ -1,9 +1,16 @@
+// THIS IS OUR SERVER ENTRY POINT
+
 import "source-map-support/register";
 
 import express from "express";
 import http from "http";
 import socketIo from "socket.io";
 import chalk from "chalk";
+import {Observable} from "rxjs"; 
+
+import {ObservableSocket} from "shared/observable-socket";
+
+import {UsersModule} from "./modules/users";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -55,13 +62,25 @@ app.get("/", (req, res) => {
 });
 
 // ---------------------------
-// Modules
+// Services
 
+// ---------------------------
+// Modules
+const users = new UsersModule(io);
+const modules = [users];
 
 // ---------------------------
 // Socket
 io.on("connection", socket => {
 	console.log(`Got connection from ${socket.request.connection.remoteAddress}`);
+
+	const client = new ObservableSocket(socket);
+
+	for(let mod of modules)
+		mod.registerClient(client);
+
+	for(let mod of modules)
+		mod.clientRegistered(client);
 });
 
 
@@ -74,4 +93,13 @@ function startServer(){
 	});
 }
 
-startServer();
+Observable.merge(...modules.map(m => m.init$()))
+	.subscribe({
+		complete(){
+			startServer();
+		},
+
+		error(error){
+			console.error(`Could not init module: ${error.stack || error}`);
+		}
+	});
