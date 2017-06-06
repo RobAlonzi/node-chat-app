@@ -29,6 +29,7 @@ function createConfig(isDebug){
 		devtool: "source-map",
 		entry: "./src/server/server.js",
 		output: {
+			libraryTarget: "commonjs",
 			path: path.join(__dirname, "build"),
 			filename: "server.js"
 		},

@@ -1,0 +1,37 @@
+$background: #111;
+$color: #D8D8D8;
+
+$background-panel: #1A1A1A;
+$border-panel: #333;
+
+$color-information: #007ACC;
+$color-danger: #FF2F00;
+$color-highlight: #FFF;
+
+$breakpoints: (
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px,
+    "max-layout": 1650px
+);
+
+@mixin mq($width, $type: max) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max { $width: $width - 1px; }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    } 
+    @else {
+        @if $type == max {$width: $width - 1px;}
+        @media only screen and (#{$type}-width: $width) {
+          @content;
+        }
+    }
+}

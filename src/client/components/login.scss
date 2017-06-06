@@ -1,0 +1,34 @@
+@import "../variables";
+
+.main-auth-form {
+	display: flex;
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
+	height:100vh;
+
+	#main-login-form, #main-create-form{
+		label{
+			display: block;
+			width: 100%;
+		}
+		
+		input{
+			display: block;
+			margin: 0 0 20px;
+			width: 100%;
+		}
+	}
+}
+
+
+.login-error{
+	background: $color-danger;
+	padding: 0 5px;
+	border-radius: 3px;
+	margin-top:15px;
+
+	p{
+		color: $color-highlight;
+	}
+}

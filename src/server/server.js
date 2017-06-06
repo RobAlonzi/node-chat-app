@@ -1,8 +1,10 @@
 // THIS IS OUR SERVER ENTRY POINT
-
+require("./config/config");
 import "source-map-support/register";
 
+import _ from "lodash";
 import express from "express";
+import bodyParser from "body-parser";
 import http from "http";
 import socketIo from "socket.io";
 import chalk from "chalk";
@@ -10,15 +12,21 @@ import {Observable} from "rxjs";
 
 import {ObservableSocket} from "shared/observable-socket";
 
+import {AuthModule} from "./modules/auth";
 import {UsersModule} from "./modules/users";
+import {ChatModule} from "./modules/chat";
+
+import {startDatabase} from "./database/mongoose";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // ---------------------------
 // Setup
 const app = express();
+app.use(bodyParser.json());
 const server = new http.Server(app);
 const io = socketIo(server);
+startDatabase();
 
 
 // ---------------------------
@@ -54,20 +62,21 @@ if(process.env.USE_WEBPACK === "true"){
 app.set("view engine", "jade");
 app.use(express.static("public"));
 
+
 const useExternalStyles = !isDevelopment;
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
 	res.render("index", {
 		useExternalStyles
 	});
 });
 
-// ---------------------------
-// Services
 
 // ---------------------------
 // Modules
 const users = new UsersModule(io);
-const modules = [users];
+const auth = new AuthModule(io, users);
+const chat = new ChatModule(io, auth);
+const socketModules = [users, auth, chat];
 
 // ---------------------------
 // Socket
@@ -76,10 +85,10 @@ io.on("connection", socket => {
 
 	const client = new ObservableSocket(socket);
 
-	for(let mod of modules)
+	for(let mod of socketModules)
 		mod.registerClient(client);
 
-	for(let mod of modules)
+	for(let mod of socketModules)
 		mod.clientRegistered(client);
 });
 
@@ -93,7 +102,7 @@ function startServer(){
 	});
 }
 
-Observable.merge(...modules.map(m => m.init$()))
+Observable.merge(...socketModules.map(m => m.init$()))
 	.subscribe({
 		complete(){
 			startServer();

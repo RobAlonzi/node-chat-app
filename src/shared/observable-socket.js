@@ -54,6 +54,8 @@ export class ObservableSocket {
 	}
 
 	emit(event, arg){
+		console.log(event);
+		console.log(arg);
 		this._socket.emit(event, arg);
 	}
 
@@ -66,7 +68,7 @@ export class ObservableSocket {
 
 		const subject = this._requests[id] = new ReplaySubject(1);
 		this._socket.emit(action, arg, id);
-	
+		
 		return subject;
 	}
 
@@ -79,7 +81,7 @@ export class ObservableSocket {
 
 			if(!request)
 				return;
-
+			
 			request.next(arg);
 			request.complete();	
 		});
@@ -98,7 +100,7 @@ export class ObservableSocket {
 
 	_popRequest(id){
 		if(!this._requests.hasOwnProperty(id)){
-			console.error(`Event with id ${id} was returned twice, or the server did not send back and ID!`);
+			console.error(`Event with id ${id} was returned twice, or the server did not send back an ID!`);
 			return;
 		}
 
@@ -135,6 +137,9 @@ export class ObservableSocket {
 						hasValue = true;
 					},
 					error: (error) => {
+						if(typeof error === "string")
+							error = { clientMessage: error };
+
 						this._emitError(action, requestId, error);
 						console.error(error.stack || error);
 					},
@@ -168,9 +173,4 @@ export class ObservableSocket {
 		const message = (error && error.clientMessage) || "Fatal Error";
 		this._socket.emit(`${action}:fail`, {message}, id);	
 	}
-
-
-
-	// ------------------------
-	// Basic Wrappers
 }

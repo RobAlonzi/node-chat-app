@@ -3,7 +3,7 @@ var path = require("path"),
 	ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 //3rd party modules
-const vendorModules = ["jquery", "lodash"];
+const vendorModules = ["jquery", "lodash", "socket.io-client", "moment", "rxjs"];
 
 const dirname = path.resolve("./");
 function createConfig(isDebug){
