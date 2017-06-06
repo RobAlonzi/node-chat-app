@@ -17,6 +17,9 @@ function createConfig(isDebug){
 	if(!isDebug){
 		plugins.push(new webpack.optimize.UglifyJsPlugin());
 		plugins.push(new ExtractTextPlugin("[name].css"));
+		plugins.push(new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+		}));
 
 		cssLoader.use = ExtractTextPlugin.extract("css-loader");
 		sassLoader.use = ExtractTextPlugin.extract("css-loader!sass-loader");
