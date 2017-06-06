@@ -1,7 +1,4 @@
-import _ from "lodash";
-
 import {ModuleBase} from "../lib/module";
-import {success, fail} from "shared/observable-socket";
 
 export class ChatModule extends ModuleBase{
 	constructor(io, auth){

@@ -2,7 +2,6 @@
 require("./config/config");
 import "source-map-support/register";
 
-import _ from "lodash";
 import express from "express";
 import bodyParser from "body-parser";
 import http from "http";
@@ -32,7 +31,7 @@ startDatabase();
 // ---------------------------
 // Client Webpack
 if(process.env.USE_WEBPACK === "true"){
-	var webpackMiddleware = require("webpack-dev-middleware"),
+	let webpackMiddleware = require("webpack-dev-middleware"),
 		webpackHotMiddleware = require("webpack-hot-middleware"),
 		webpack = require("webpack"),
 		clientConfig = require("../../webpack.client").create(true);

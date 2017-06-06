@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 import {ModuleBase} from "../lib/module";
 
 import {fail} from "shared/observable-socket";
@@ -24,7 +22,7 @@ export class UsersModule extends ModuleBase{
 	}
 
 
-	addClient(client, {_id, username, color}){
+	addClient(client, {username, color}){
 		const user = client[UserContext] || (client[UserContext] = {});
 
 		//TODO: handle a double log in
