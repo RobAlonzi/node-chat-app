@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node build/server"
+    "postinstall": "gulp prod",
+    "start": "node build/server.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
+  },
+  "dependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
@@ -41,10 +46,6 @@
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
-    "webpack-dev-middleware": "^1.10.2",
-    "webpack-hot-middleware": "^2.18.0"
-  },
-  "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.2",
