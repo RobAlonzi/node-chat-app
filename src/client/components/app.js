@@ -7,10 +7,7 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-
 import * as services from "../lib/services";
-
-import {userLoginByToken} from "../actions/auth";
 
 import Login from "./login";
 import Draft from "./draft/draft";
@@ -21,7 +18,6 @@ const history = createBrowserHistory();
 class AppContainer extends Component{
 	constructor(props){
 		super(props);
-
 		services.socket.connect();
 	}
 

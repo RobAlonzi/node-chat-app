@@ -1,10 +1,7 @@
-import axios from "axios";
-import { Observable } from "rxjs";
-
 import {server} from "../lib/services";
 
 import {AUTH_SUCCESS, AUTH_ERROR, AUTH_LOADING, AUTH_LOGOUT} from "shared/actions";
-import {validateCreateUser, translateError} from "shared/validation/auth";
+import {validateCreateUser} from "shared/validation/auth";
 
 
 export const userCreate = (email, username, password, password_confirm) => {

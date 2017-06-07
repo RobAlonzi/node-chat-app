@@ -8,7 +8,6 @@ export const userList = (users) => {
 };
 
 export const userAdded = (user) => {
-	console.log(user);
 	return {
 		type: USER_ADDED,
 		payload: user

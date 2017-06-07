@@ -28,10 +28,6 @@ class Login extends ContainerBase{
 		if(!token)
 			return;
 		
-		console.log(this.props.auth);
-		console.log("token");
-		console.log(token);
-		
 		this.props.dispatch(userLoginByToken(token));
 	}
 

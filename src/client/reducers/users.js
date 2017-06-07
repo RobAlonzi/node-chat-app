@@ -4,7 +4,6 @@ import {USER_LIST, USER_ADDED, USER_REMOVED} from "shared/actions";
 
 export default function(state = [], action) {
 	let index = null;
-	console.log(action.type);
 	switch(action.type){
 	case USER_LIST:
 		return action.payload;

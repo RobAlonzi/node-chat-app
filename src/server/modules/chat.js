@@ -11,7 +11,7 @@ export class ChatModule extends ModuleBase{
 
 		const auth = this._auth.findUserByToken$(curUser.token);
 		
-		auth.subscribe(user => {
+		auth.subscribe(() => {
 			message = message.trim();
 			const response = {
 				user: curUser,

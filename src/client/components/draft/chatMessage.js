@@ -20,7 +20,7 @@ export const ChatMessage = (props) => {
 	}
 
 	else if(type === "chat-add-fail"){
-		message = `${data.error}. Please refresh the page.`;
+		message = `${data.error} Please refresh the page.`;
 	}
 	else if(type === "user-joined"){
 		type = "user-action joined";
