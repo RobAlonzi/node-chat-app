@@ -19,6 +19,9 @@ export const ChatMessage = (props) => {
 		else message = "server has gone down.";
 	}
 
+	else if(type === "chat-add-fail"){
+		message = `${data.error}. Please refresh the page.`;
+	}
 	else if(type === "user-joined"){
 		type = "user-action joined";
 		style = {color: data.color};

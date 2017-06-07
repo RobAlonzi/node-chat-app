@@ -12,12 +12,6 @@ export class ChatModule extends ModuleBase{
 		const auth = this._auth.findUserByToken$(curUser.token);
 		
 		auth.subscribe(user => {
-			// if(curUser.id !== user._id){
-			// 	client.emit("chat:add:fail", "Illegal Token provided.")
-			// 	return;
-			// }
-				
-
 			message = message.trim();
 			const response = {
 				user: curUser,
@@ -26,11 +20,10 @@ export class ChatModule extends ModuleBase{
 				type: type
 			};
 
-			console.log(response);
 			this._io.emit("chat:added", response);
 
 		}, error => {
-			client.emit("chat:add:fail", "Illegal token provided or token has expired. Please refresh the page");
+			this._io.to(client._socket.id).emit('chat:added:fail', error);
 		});
 	}
 

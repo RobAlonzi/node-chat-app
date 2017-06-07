@@ -54,11 +54,8 @@ export class ObservableSocket {
 	}
 
 	emit(event, arg){
-		console.log(event);
-		console.log(arg);
 		this._socket.emit(event, arg);
 	}
-
 
 	// ------------------------
 	// Emit (Client Side)

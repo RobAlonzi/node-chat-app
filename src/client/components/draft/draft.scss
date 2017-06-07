@@ -19,6 +19,21 @@
 			> section{
 				border-right: 5px solid $border-panel;
 			}
+
+			button{
+				color: $color-highlight;
+				background: transparent;
+				border:1px solid $border-panel;
+				padding: 5px 20px;
+				border-radius: 3px;
+				margin:10px 5%;
+				width:90%;
+				cursor: pointer;
+
+				&:hover{
+					background: $border-panel;
+				}
+			}
 		}
 
 		&.right{

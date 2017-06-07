@@ -16,7 +16,13 @@ export class AuthModule extends ModuleBase{
 	}
 
 	findUserByToken$(token){
-		return Observable.fromPromise(User.findByToken(token)).map(user => this.generateUserCreds(user, token));
+		return Observable.fromPromise(User.findByToken(token))
+			.flatMap(user => {
+				if(!user)
+					return fail("Invalid token provided.");
+
+				return Observable.of(this.generateUserCreds(user, token));
+			});
 	}
 
 

@@ -27,7 +27,9 @@ export class Draft extends ContainerBase{
 		return (
 			<div className="site-wrap">
 				<div className="column left">
-					<button onClick={this.handleLogout}>Logout</button>
+					<section>
+						<button onClick={this.handleLogout}>Logout</button>
+					</section>
 				</div>
 				<div className="column center">
 					<Chat />

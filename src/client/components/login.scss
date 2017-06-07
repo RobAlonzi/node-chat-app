@@ -11,12 +11,27 @@
 		label{
 			display: block;
 			width: 100%;
+			margin-bottom:3px;
 		}
 		
 		input{
 			display: block;
 			margin: 0 0 20px;
 			width: 100%;
+		}
+	}
+
+	button{
+		color: $color-highlight;
+		background: transparent;
+		border:1px solid $border-panel;
+		padding: 5px 20px;
+		border-radius: 3px;
+		width:100%;
+		cursor: pointer;
+
+		&:hover{
+			background: $border-panel;
 		}
 	}
 }

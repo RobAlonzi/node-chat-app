@@ -33,6 +33,13 @@ section.chat{
 				font-style: italic; 
 			}
 
+			&.chat-add-fail, 
+			&.chat-add-fail .author,
+			&.chat-add-fail time {
+				background: $color-danger;
+				color: $color-highlight;
+			}
+
 			.message{
 				flex-grow: 1;
 				padding:5px;

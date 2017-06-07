@@ -23,7 +23,10 @@ export class Chat extends ContainerBase{
 			this._server.status$.filter(m => m).map(message => <ChatMessage key={uniqueId("server-status")} data={message} type="server-status" author="system" />),
 			this._server.on$("users:added").filter(m => m).map(user => <ChatMessage key={uniqueId("user-added")} data={user} type="user-joined" author={user.name}  />),
 			this._server.on$("users:removed").filter(m => m).map(user => <ChatMessage key={uniqueId("user-left")} data={user} type="user-left" author={user.name}  /> ),
-			this._server.on$("chat:added").filter(m => m).map(message => <ChatMessage key={uniqueId("chat-message")} data={message} type="user-message" author={message.user.username}  />)
+			this._server.on$("chat:added").filter(m => m).map(message => <ChatMessage key={uniqueId("chat-message")} data={message} type="user-message" author={message.user.username}  />),
+			this._server.on$("chat:added:fail").filter(m => m).map(message => {
+				console.log(message);
+				return <ChatMessage key={uniqueId("chat-add-fail")} data={{error: message.clientMessage}} type="chat-add-fail" author="system" />;})
 		);
 
 		
